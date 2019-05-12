@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import CreateToDo from './components/CreateToDo'
-import EditToDo from './components/EditToDo'
-import ToDoList from './components/ToDoList'
+import CreateToDo from './frontend/CreateToDo'
+import EditToDo from './frontend/EditToDo'
+import ToDoList from './frontend/ToDoList'
 import logo from './img/icone_linkedin.GIF'
 
 class App extends Component {
