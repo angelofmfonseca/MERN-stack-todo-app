@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 class CreateToDo extends Component {
     constructor(props) {
@@ -9,26 +10,31 @@ class CreateToDo extends Component {
             todo_priority: '',
             todo_completed: false
         }
+
         this.onChangeToDoDescription = this.onChangeToDoDescription.bind(this)
         this.onChangeToDoResponsible = this.onChangeToDoResponsible.bind(this)
         this.onChangeToDoPriority = this.onChangeToDoPriority.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
     }
+
     onChangeToDoDescription(e){
         this.setState({
             todo_description: e.target.value
         })
     }
+
     onChangeToDoResponsible(e){
         this.setState({
             todo_responsible: e.target.value
         })
     }
+
     onChangeToDoPriority(e){
         this.setState({
             todo_priority: e.target.value
         })
     }
+
     onSubmit(e){
         e.preventDefault()
 
@@ -38,6 +44,18 @@ class CreateToDo extends Component {
         console.log(`ToDo Priority: ${ this.state.todo_priority }`)
         console.log(`ToDo Completed: ${ this.state.todo_completed }`)
 
+        const newTodo = {
+            todo_description: this.state.todo_description,
+            todo_responsible: this.state.todo_responsible,
+            todo_priority: this.state.todo_priority,
+            todo_completed: this.state.todo_completed
+        }
+
+        axios.post('http://localhost:4000/todos/add', newTodo)
+            .then((res) => {
+                console.log(res.data)
+            })
+
         this.setState({
             todo_description: '',
             todo_responsible: '',
@@ -45,9 +63,10 @@ class CreateToDo extends Component {
             todo_completed: false
         })
     }
+
     render(){
         return(
-            <div style={{ marginTop: 20 }}>
+            <React.Fragment style={{ marginTop: 20 }}>
                 <h3>Create New ToDo</h3>
                 <form onSubmit={ this.onSubmit }>
                     <div className="form-group">
@@ -107,7 +126,7 @@ class CreateToDo extends Component {
                         </div>
                     </div>
                 </form>
-            </div>
+            </React.Fragment>
         )
     }
 }
