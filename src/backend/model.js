@@ -1,19 +1,23 @@
 const mongoose = require('mongoose')
-const schema = mongoose.Schema
+const Schema = mongoose.Schema
 
-let todo = new schema({
+let Todo = new Schema({
     todo_description: {
-        tyoe: String
+        type: String,
+        content: String
     },
     todo_responsible: {
-        type: String
+        type: String,
+        content: String
     },
     todo_priority: {
-        type: String
+        type: String,
+        content: String
     },
     todo_completed: {
-        type: Boolean
+        type: Boolean,
+        content: String
     }
 })
 
-module.exports = mongoose.model('todo', todo)
+module.exports = mongoose.model('Todo', Todo)
