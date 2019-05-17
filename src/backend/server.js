@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 
 const todoRoutes = express.Router()
 
-const PORT = 4000
+const PORT = 5000
 
 let Todo = require('./model')
 
