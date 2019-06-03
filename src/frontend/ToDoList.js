@@ -23,6 +23,18 @@ class ToDoList extends Component {
             })
     }
 
+    componentDidUpdate(){
+        axios.get('http://localhost:4000/todos/')
+            .then((res) => {
+                this.setState({
+                    todos: res.data
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
     todoList(){
         return this.state.todos.map((currentToDo, i) => {
             return <ToDo todo={ currentToDo } key={ i } />

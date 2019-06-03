@@ -4,6 +4,13 @@ import axios from 'axios'
 class EditToDo extends Component {
     constructor(props){
         super(props)
+
+        this.onChangeToDoDescription = this.onChangeToDoDescription.bind(this)
+        this.onChangeToDoResponsible = this.onChangeToDoResponsible.bind(this)
+        this.onChangeToDoPriority = this.onChangeToDoPriority.bind(this)
+        this.onChangeToDoCompleted = this.onChangeToDoCompleted.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
+
         this.state = {
             todo_description: '',
             todo_responsible: '',
@@ -25,6 +32,45 @@ class EditToDo extends Component {
             .catch((err) => {
                 console.log(err)
             })
+    }
+
+    onChangeToDoDescription(e){
+        this.setState({
+            todo_description: e.target.value
+        })
+    }
+
+    onChangeToDoResponsible(e){
+        this.setState({
+            todo_responsible: e.target.value
+        })
+    }
+
+    onChangeToDoPriority(e){
+        this.setState({
+            todo_priority: e.target.value
+        })
+    }
+
+    onChangeToDoCompleted(e){
+        this.setState({
+            todo_completed: !this.state.todo_completed
+        })
+    }
+
+    onSubmit(e){
+        e.preventDefault()
+        const obj = {
+            todo_description: this.state.todo_description,
+            todo_responsible: this.state.todo_responsible,
+            todo_priority: this.state.todo_priority,
+            todo_completed: this.state.todo_completed
+        }
+        axios.post('http://localhost:4000/todos/update/' + this.props.match.params.id, obj)
+            .then((res) => {
+                console.log(res.data);
+            })
+        this.props.history.push('/')
     }
 
     render(){
@@ -92,7 +138,8 @@ class EditToDo extends Component {
                                 value={ this.state.todo_completed }
                             />
                             <label htmlFor="completedCheckbox" 
-                                className="form-check-label">
+                                className="form-check-label"
+                            >
                                     Completed
                             </label>
                         </div>
